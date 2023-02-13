@@ -43,7 +43,7 @@ export class ContactsEffects {
     this.actions$.pipe(
       ofType(ContactsActions.addContact),
       switchMap((contact) => this.client.addContact(contact)
-        .pipe(tap(() => this.snackBar.open('Contact added succesfully!')), map(() => ContactsActions.initContacts()))
+        .pipe(tap(() => this.snackBar.open('Contact added succesfully!', 'OK', { duration:2000 })), map(() => ContactsActions.initContacts()))
       ),
       catchError((error) => {
         console.error('Error', error);
@@ -56,7 +56,7 @@ export class ContactsEffects {
     this.actions$.pipe(
       ofType(ContactsActions.editContact),
       switchMap((contact) => this.client.editContact(contact)
-        .pipe(tap(() => this.snackBar.open('Contact updated succesfully!')), map(() => ContactsActions.initContacts()))
+        .pipe(tap(() => this.snackBar.open('Contact updated succesfully!', 'OK', { duration:2000 })), map(() => ContactsActions.initContacts()))
       ),
       catchError((error) => {
         console.error('Error', error);
@@ -69,7 +69,7 @@ export class ContactsEffects {
     this.actions$.pipe(
       ofType(ContactsActions.deleteContact),
       switchMap(({id}) => this.client.deleteContact(id)
-        .pipe(tap(() => this.snackBar.open('Contact deleted succesfully!')), map(() => ContactsActions.initContacts()))
+        .pipe(tap(() => this.snackBar.open('Contact deleted succesfully!', 'OK', { duration:2000 })), map(() => ContactsActions.initContacts()))
       ),
       catchError((error) => {
         console.error('Error', error);
