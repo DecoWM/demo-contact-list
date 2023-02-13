@@ -1,0 +1,22 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav-content>
+    <mat-toolbar color="primary">
+      <span>Demo Contact List</span>
+      <span class="toolbar-spacer"></span>
+      <span *ngIf="auth.user | async as user">
+        <span class="welcome-text">
+          Hello, 
+          <span class="welcome-text-username">{{ user.displayName }}</span>
+          <span class="welcome-text-separator">|</span>
+        </span>
+        <button mat-flat-button (click)="logout()">
+          <mat-icon>logout</mat-icon>
+          Logout
+        </button>
+      </span>
+    </mat-toolbar>
+    <div class="component-wrapper">
+      <router-outlet></router-outlet>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

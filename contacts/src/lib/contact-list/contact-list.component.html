@@ -1,0 +1,86 @@
+<div class="demo-button-container">
+  <button mat-raised-button (click)="addContact()" class="demo-button">
+    <mat-icon>add</mat-icon>
+    Add contact
+  </button>
+  <!--button
+      mat-raised-button
+      [disabled]="!dataSource.length"
+      (click)="removeData()"
+      class="demo-button">
+    <mat-icon>delete</mat-icon>
+    Remove selected
+  </button-->
+</div>
+
+<mat-form-field>
+  <mat-label>Filter</mat-label>
+  <input matInput (keyup)="applyFilter($event)" placeholder="Filter by name, phone or email" autocomplete="off" #input>
+</mat-form-field>
+
+<div class="mat-elevation-z8 demo-container">
+  <table mat-table class="full-width-table" matSort aria-label="Elements">
+    <!-- Name Column -->
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
+      <td mat-cell *matCellDef="let row">{{row.name}}</td>
+    </ng-container>
+
+    <!-- Phone Column -->
+    <ng-container matColumnDef="phone">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Phone</th>
+      <td mat-cell *matCellDef="let row">{{row.phone}}</td>
+    </ng-container>
+
+    <!-- Email Column -->
+    <ng-container matColumnDef="email">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Email</th>
+      <td mat-cell *matCellDef="let row">{{row.email}}</td>
+    </ng-container>
+
+    <!-- Actions Column -->
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let row">
+        <button mat-flat-button color="primary" (click)="editContact(row.id)" class="demo-button">
+          <mat-icon>edit</mat-icon>
+          Edit
+        </button>
+        <button mat-flat-button color="primary" (click)="deleteContact(row.id)" class="demo-button">
+          <mat-icon>delete</mat-icon>
+          Delete
+        </button>
+      </td>
+    </ng-container>
+
+    <!-- Loading data column -->
+    <ng-container matColumnDef="loading">
+      <td mat-header-cell *matHeaderCellDef colspan="4">
+        Loading your contacts...
+      </td>
+    </ng-container>
+
+    <!-- Empty results column -->
+    <ng-container matColumnDef="empty">
+      <td mat-header-cell *matHeaderCellDef colspan="4">
+        Your contact list is empty. Add a contact to get started.
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+
+    <!-- Show loading message -->
+    <tr mat-header-row 
+      *matHeaderRowDef="!!!(loaded$ | async) ? ['loading'] : []" 
+      class="header-row" 
+      [ngClass]="{'header-hide':!!(loaded$ | async)}"></tr>
+    
+    <!-- Show empty message -->
+    <tr mat-header-row 
+      *matHeaderRowDef="!!(loaded$ | async) && dataSource.isEmpty ? ['empty'] : []" 
+      class="header-row" 
+      [ngClass]="{'header-hide':!!!(loaded$ | async) || !dataSource.isEmpty}"></tr>
+
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</div>
