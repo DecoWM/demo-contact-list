@@ -20,7 +20,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatCardModule } from '@angular/material/card';
 import { MatDialogModule } from '@angular/material/dialog';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { SharedUiModule } from '@demo-contact-list/shared/ui';
 
 @NgModule({
   imports: [
@@ -32,6 +32,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
       fromContacts.contactsReducer
     ),
     EffectsModule.forFeature([ContactsEffects]),
+    SharedUiModule,
     MatTableModule,
     MatSortModule,
     MatFormFieldModule,
@@ -42,7 +43,6 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     MatRadioModule,
     MatCardModule,
     MatDialogModule,
-    MatSnackBarModule,
   ],
   providers: [ContactsFacade, ContactsClient],
   declarations: [ContactListComponent, ContactFormComponent],

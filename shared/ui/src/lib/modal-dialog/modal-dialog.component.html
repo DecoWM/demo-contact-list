@@ -1,0 +1,10 @@
+<h6 class="modal-title" mat-dialog-title>
+  <span>{{title}}</span>
+</h6>
+<mat-dialog-content class="mat-typography">
+  {{message}}
+</mat-dialog-content>
+<div mat-dialog-actions class="buttons-container" *ngIf="dialog">
+  <button mat-button class="dialog-button" (click)="cancel()" cdkFocusInitial>{{dialog.cancel?.title}}</button>
+  <button mat-flat-button color="primary" class="dialog-button accept-button" (click)="accept()">{{dialog.accept?.title}}</button>
+</div>

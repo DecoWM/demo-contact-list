@@ -16,7 +16,8 @@
     "baseUrl": ".",
     "paths": {
       "@demo-contact-list/auth": ["auth/src/index.ts"],
-      "@demo-contact-list/contacts": ["contacts/src/index.ts"]
+      "@demo-contact-list/contacts": ["contacts/src/index.ts"],
+      "@demo-contact-list/shared/ui": ["shared/ui/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

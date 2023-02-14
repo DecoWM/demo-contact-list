@@ -5,6 +5,7 @@ import { ContactListDataSource, ContactListItem } from './contact-list-datasourc
 import { MatDialog } from '@angular/material/dialog';
 import { ContactFormComponent } from '../contact-form/contact-form.component';
 import { ContactsFacade } from '../+state/contacts.facade';
+import { SharedUiFacade } from '@demo-contact-list/shared/ui';
 
 @Component({
   selector: 'demo-contact-list-contact-list',
@@ -16,10 +17,11 @@ export class ContactListComponent implements AfterViewInit {
   @ViewChild(MatTable) table!: MatTable<ContactListItem>;
   dataSource: ContactListDataSource;
   displayedColumns = ['name', 'phone', 'email', 'actions'];
-  loaded$ = this.facade.loaded$;
+  loaded$ = this.contacts.loaded$;
 
   constructor(
-    private readonly facade: ContactsFacade,
+    private readonly contacts: ContactsFacade,
+    private readonly sharedUi: SharedUiFacade,
     private readonly dialog: MatDialog
   ) {
     this.dataSource = new ContactListDataSource();
@@ -44,6 +46,20 @@ export class ContactListComponent implements AfterViewInit {
   }
 
   deleteContact(id: string) {
-    this.facade.deleteContact(id);
+    this.sharedUi.showModal({
+      title: 'Delete contact',
+      message: 'This action can\'t be undone. Do you want to proceed?',
+      dialog: {
+        accept: {
+          title: 'Yes',
+          callback: () => {
+            this.contacts.deleteContact(id)
+          },
+        },
+        cancel: {
+          title: 'No',
+        },
+      },
+    })
   }
 }
